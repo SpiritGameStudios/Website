@@ -1,4 +1,5 @@
 ---
+import Logo from "../components/Logo.astro";
 import Default from "../layouts/Default.astro";
 
 
@@ -7,8 +8,8 @@ import Default from "../layouts/Default.astro";
 <Default>
 		<div class="h-full flex flex-col gap-2 justify-center sm:mx-[5%]">
 			<div class="w-fit flex flex-col gap-4">
-				<img class="w-14 h-14" src="/favicon.svg">
-				<br>
+				<Logo />
+				<br class="select-none">
 				<span class="font-thin text-4xl sm:text-6xl tracking-wider decoration-logo-deep-purple">REDEFINING.</span>
 				<hr class="border-brand-border">
 				<span> Spirit Studios is a small Minecraft modding group that makes vanilla-style mods for Fabric. </span>
@@ -16,7 +17,7 @@ import Default from "../layouts/Default.astro";
 					<span class="bg-brand-background-secondary p-2 rounded-xl"> <a href="https://github.com/spiritgamestudios"> Github </a> </span>
 					<span class="bg-brand-background-secondary p-2 rounded-xl"> <a href="https://modrinth.com/organization/spirit"> Modrinth </a> </span>
 				</div>
-				<div class="flex flex-row gap-2 flex-wrap">
+				<div class="flex flex-row gap-2 flex-wrap select-none">
 					<a target="_blank" href="https://github.com/callmeechocodes"> <img class="border border-brand-border w-10 h-10 rounded-full" src="https://github.com/callmeechocodes.png"> </a>
 					<a target="_blank" href="https://github.com/hamaindustries"> <img class="border border-brand-border w-10 h-10 rounded-full" src="https://github.com/hamaindustries.png"> </a>
 					<a target="_blank" href="https://github.com/worldwidepixel"> <img class="border border-brand-border w-10 h-10 rounded-full" src="https://github.com/worldwidepixel.png"> </a>
