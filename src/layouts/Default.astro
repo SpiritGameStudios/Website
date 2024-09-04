@@ -1,7 +1,7 @@
 ---
-import "../components/Logotype.astro";
-import Logotype from "../components/Logotype.astro";
-import "../styles/global.css";
+import "@components/Logotype.astro";
+import Logotype from "@components/Logotype.astro";
+import "@styles/global.css";
 let { title } = Astro.props;
 
 title = title === "" || title === undefined ? "Spirit Studios" : `${title} | Spirit Studios`;
