@@ -1,47 +1,44 @@
 ---
-import Default from "../layouts/Default.astro";
 import PersonCard from "../components/PersonCard.astro";
+import Default from "../layouts/Default.astro";
 const headers = new Headers({
-  "User-Agent":
-    "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
+	"User-Agent": "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
 });
 let people;
 try {
-  people = await (
-    await fetch("https://api.modrinth.com/v3/organization/spirit/members", {
-      headers: headers,
-    })
-  ).json();
+	people = await (
+		await fetch("https://api.modrinth.com/v3/organization/spirit/members", {
+			headers: headers,
+		})
+	).json();
 } catch {
-  people = [
-    {
-      user: {
-        username: "undefined",
-        avatar_url: "/favicon.svg",
-        bio: "undefined",
-      },
-    },
-  ];
+	people = [
+		{
+			user: {
+				username: "undefined",
+				avatar_url: "/favicon.svg",
+				bio: "undefined",
+			},
+		},
+	];
 }
 ---
 
 <Default title="People">
-  <div class="flex flex-col gap-6">
-    <span class="text-4xl font-thin tracking-wider sm:text-6xl"> PEOPLE. </span>
-    <span>Here are the people that make Spirit Studios possible.</span>
-    <div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
-      {
-        people.map(
-          (person: { user: { username: any; avatar_url: any; bio: any } }) => (
-            <PersonCard
-              name={person.user.username}
-              avatar={person.user.avatar_url}
-              url={`https://modrinth.com/user/${person.user.username}`}
-              bio={person.user.bio}
-            />
-          ),
-        )
-      }
-    </div>
-  </div>
+	<div class="flex flex-col gap-6">
+		<span class="text-4xl font-thin tracking-wider sm:text-6xl"> PEOPLE. </span>
+		<span>Here are the people that make Spirit Studios possible.</span>
+		<div class="grid grid-cols-1 gap-4 xl:grid-cols-2">
+			{
+				people.map((person: { user: { username: any; avatar_url: any; bio: any } }) => (
+					<PersonCard
+						name={person.user.username}
+						avatar={person.user.avatar_url}
+						url={`https://modrinth.com/user/${person.user.username}`}
+						bio={person.user.bio}
+					/>
+				))
+			}
+		</div>
+	</div>
 </Default>
