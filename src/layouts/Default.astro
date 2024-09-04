@@ -1,64 +1,60 @@
 ---
-import "../styles/global.css";
 import "../components/Logotype.astro";
 import Logotype from "../components/Logotype.astro";
+import "../styles/global.css";
 let { title } = Astro.props;
 if (title === "" || title === undefined) {
-  title = "Spirit Studios";
+	title = "Spirit Studios";
 } else {
-  title += " | Spirit Studios";
+	title += " | Spirit Studios";
 }
 ---
 
 <!doctype html>
 <html class="h-full bg-brand-background text-brand-text">
-  <head>
-    <title>{title}</title>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="title" content="Home - Spirit Studios" />
-    <meta
-      name="description"
-      content="Spirit Studios is a small Minecraft modding group that makes vanilla-style mods for Fabric."
-    />
-    <meta name="keywords" content="minecraft,fabric,mod,spirit,spiritstudios" />
-    <meta name="robots" content="index" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="language" content="English" />
-    <meta name="author" content="Spirit Studios" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Spirit Studios" />
-    <meta property="og:url" content="https://spiritstudios.dev" />
-    <meta property="og:image" content="https://spiritstudios.dev/og.png" />
-    <meta
-      property="og:description"
-      content="Spirit Studios is a small Minecraft modding group that makes vanilla-style mods for Fabric."
-    />
-  </head>
-  <body class="flex h-dvh flex-col">
-    <nav class="flex w-full flex-row justify-center border-b">
-      <div
-        class="flex w-full max-w-[72rem] flex-row items-center justify-center gap-4 p-6 sm:justify-between"
-      >
-        <div
-          class="flex flex-col items-center gap-2 gap-x-6 font-bold tracking-widest sm:flex-row"
-        >
-          <a href="/">
-            <Logotype />
-          </a>
-          <a href="/projects"> PROJECTS </a>
-          <a href="/people"> PEOPLE </a>
-        </div>
-      </div>
-    </nav>
-    <main class="flex w-full flex-auto flex-row justify-center">
-      <div class="w-full max-w-[72rem] p-6">
-        <slot />
-      </div>
-    </main>
-    <!-- <footer class="flex w-full flex-row justify-center border-t">
+	<head>
+		<title>{title}</title>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="title" content="Home - Spirit Studios" />
+		<meta
+			name="description"
+			content="Spirit Studios is a small Minecraft modding group that makes vanilla-style mods for Fabric."
+		/>
+		<meta name="keywords" content="minecraft,fabric,mod,spirit,spiritstudios" />
+		<meta name="robots" content="index" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="language" content="English" />
+		<meta name="author" content="Spirit Studios" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Spirit Studios" />
+		<meta property="og:url" content="https://spiritstudios.dev" />
+		<meta property="og:image" content="https://spiritstudios.dev/og.png" />
+		<meta
+			property="og:description"
+			content="Spirit Studios is a small Minecraft modding group that makes vanilla-style mods for Fabric."
+		/>
+	</head>
+	<body class="flex h-dvh flex-col">
+		<nav class="flex w-full flex-row justify-center border-b">
+			<div class="flex w-full max-w-[72rem] flex-row items-center justify-center gap-4 p-6 sm:justify-between">
+				<div class="flex flex-col items-center gap-2 gap-x-6 font-bold tracking-widest sm:flex-row">
+					<a href="/">
+						<Logotype />
+					</a>
+					<a href="/projects"> PROJECTS </a>
+					<a href="/people"> PEOPLE </a>
+				</div>
+			</div>
+		</nav>
+		<main class="flex w-full flex-auto flex-row justify-center">
+			<div class="w-full max-w-[72rem] p-6">
+				<slot />
+			</div>
+		</main>
+		<!-- <footer class="flex w-full flex-row justify-center border-t">
       <div class="w-full max-w-[72rem] p-6">da</div>
     </footer> -->
-  </body>
+	</body>
 </html>

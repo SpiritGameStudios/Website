@@ -4,67 +4,51 @@
 @tailwind components;
 
 * {
-  @apply border-brand-border;
+	@apply border-brand-border;
 }
 
 .bgimg {
-  mask-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
+	mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
+	-webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 .cardbg {
-  mask-image: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.4) 75%
-  );
-  -webkit-mask-image: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.4) 75%
-  );
+	mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 75%);
+	-webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 75%);
 }
 
 .md h1 {
-  @apply mb-4 border-b text-3xl font-bold;
+	@apply mb-4 border-b text-3xl font-bold;
 }
 .md h2 {
-  @apply my-2 border-b text-2xl font-bold;
+	@apply my-2 border-b text-2xl font-bold;
 }
 .md h3 {
-  @apply mb-4 text-xl font-bold;
+	@apply mb-4 text-xl font-bold;
 }
 .md img {
-  @apply m-0.5 inline-block w-fit max-w-full;
+	@apply m-0.5 inline-block w-fit max-w-full;
 }
 .md p {
-  @apply my-4;
+	@apply my-4;
 }
 .md strong {
-  @apply font-bold;
+	@apply font-bold;
 }
 .md li {
-  @apply mb-4 ml-8 list-disc;
+	@apply mb-4 ml-8 list-disc;
 }
 
 ::-webkit-scrollbar {
-  width: 1rem;
+	width: 1rem;
 }
 
 .button {
-  @apply rounded-xl bg-logo-deep-purple px-4 py-3 text-lg font-extrabold transition active:scale-95;
+	@apply rounded-xl bg-logo-deep-purple px-4 py-3 text-lg font-extrabold transition active:scale-95;
 }
 
 * {
-  scrollbar-color: #8400ff #161b1d;
+	scrollbar-color: #8400ff #161b1d;
 }
 
 @tailwind utilities;
