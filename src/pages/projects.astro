@@ -6,19 +6,16 @@ const headers = new Headers({
 	"User-Agent": "spiritgamestudios/landing, @worldwidepixel or @callmeecho on discord.",
 });
 
-const projects = await (
-	await fetch("https://api.modrinth.com/v3/organization/spirit/projects", {
-		headers: headers,
-	})
-).json();
+const response = await fetch("https://api.modrinth.com/v3/organization/spirit/projects", {
+	headers: headers,
+});
+
+const projects = response.ok ? await response.json() : [];
 ---
 
 <Default title="Projects">
 	<div class="flex flex-col gap-6">
-		<span class="text-4xl font-thin tracking-wider sm:text-6xl">
-			PROJECTS.
-			<!-- Let's make this use the Modrinth API soon. -->
-		</span>
+		<span class="text-4xl font-thin tracking-wider sm:text-6xl"> PROJECTS. </span>
 		{
 			projects[0] ? (
 				projects.map(
