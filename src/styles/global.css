@@ -1,5 +1,12 @@
 @import url(https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900);
-@import url(/font/spiritregular.css);
+
+@font-face {
+	font-family: "Spirit";
+	font-style: normal;
+	font-weight: 100;
+	font-stretch: 100%;
+	src: url("/fonts/SpiritRegular.ttf") format("truetype");
+}
 
 @tailwind base;
 @tailwind components;
