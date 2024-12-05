@@ -2,6 +2,7 @@
 import "../components/Logotype.astro";
 import Logotype from "../components/Logotype.astro";
 import "../styles/global.css";
+import { Box, UsersRound, Heart } from "lucide-astro";
 let { title } = Astro.props;
 if (title === "" || title === undefined) {
 	title = "Spirit Studios";
@@ -39,22 +40,34 @@ if (title === "" || title === undefined) {
 	<body class="flex h-dvh flex-col">
 		<nav class="flex w-full flex-row justify-center border-b">
 			<div class="flex w-full max-w-[72rem] flex-row items-center justify-center gap-4 p-6 sm:justify-between">
-				<div class="flex flex-col items-center gap-2 gap-x-6 font-bold tracking-widest sm:flex-row">
+				<div class="flex flex-row items-center gap-2 gap-x-6 font-bold tracking-widest">
 					<a href="/">
 						<Logotype />
 					</a>
-					<a href="/projects"> PROJECTS </a>
-					<a href="/people"> PEOPLE </a>
+				</div>
+				<div class="flex flex-row items-center gap-2 gap-x-6 font-extrabold tracking-widest">
+					<a class="hover:underline" href="/projects">
+						<span class="hidden sm:block">PROJECTS</span>
+						<span class="block sm:hidden"><Box /></span>
+					</a>
+					<a class="hover:underline" href="/people">
+						<span class="hidden sm:block">PEOPLE</span>
+						<span class="block sm:hidden"><UsersRound /></span>
+					</a>
 				</div>
 			</div>
 		</nav>
-		<main class="flex w-full flex-auto flex-row justify-center">
+		<main class="flex w-full flex-auto flex-row items-center justify-center">
 			<div class="w-full max-w-[72rem] p-6">
 				<slot />
 			</div>
 		</main>
-		<!-- <footer class="flex w-full flex-row justify-center border-t">
-      <div class="w-full max-w-[72rem] p-6">da</div>
-    </footer> -->
+		<footer class="flex w-full flex-row justify-center border-t">
+			<div class="w-full max-w-[72rem] p-6">
+				<span class="flex flex-row gap-0">
+					Made with <Heart class="p-1" /> by Spirit Studios.
+				</span>
+			</div>
+		</footer>
 	</body>
 </html>

@@ -2,10 +2,15 @@
 import ProjectCard from "../components/ProjectCard.astro";
 import Default from "../layouts/Default.astro";
 const headers = new Headers({
-	"User-Agent": "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
+	"User-Agent": "spiritgamestudios/landing, @worldwidepixel or @callmeecho on discord.",
 });
+const collection_data = await (
+	await fetch("https://api.modrinth.com/v3/collection/nufo4NkE", {
+		headers: headers,
+	})
+).json();
 const projects = await (
-	await fetch("https://api.modrinth.com/v3/organization/spirit/projects", {
+	await fetch(`https://api.modrinth.com/v3/projects?ids=${JSON.stringify(collection_data.projects ?? [])}`, {
 		headers: headers,
 	})
 ).json();
@@ -13,24 +18,31 @@ const projects = await (
 
 <Default title="Projects">
 	<div class="flex flex-col gap-6">
-		<span class="text-4xl font-thin tracking-wider sm:text-6xl">
-			PROJECTS.
-			<!-- Let's make this use the Modrinth API soon. -->
-		</span>
+		<h1 class="spirit-heavy">Projects.</h1>
+		<span>Here are projects made by Spirit Studios.</span>
 		{
 			projects[0] ? (
-				projects.map(
-					(project: { name: any; summary: any; icon_url: any; gallery: any; link_urls: any; slug: any }) => (
-						<ProjectCard
-							title={project.name}
-							summary={project.summary}
-							icon={project.icon_url}
-							gallery={project.gallery}
-							links={project.link_urls}
-							slug={project.slug}
-						/>
-					),
-				)
+				projects
+					.sort((a: any, b: any) => a.name.localeCompare(b.name))
+					.map(
+						(project: {
+							name: any;
+							summary: any;
+							icon_url: any;
+							gallery: any;
+							link_urls: any;
+							slug: any;
+						}) => (
+							<ProjectCard
+								title={project.name}
+								summary={project.summary}
+								icon={project.icon_url}
+								gallery={project.gallery}
+								links={project.link_urls}
+								slug={project.slug}
+							/>
+						),
+					)
 			) : (
 				<div />
 			)

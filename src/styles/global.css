@@ -1,4 +1,5 @@
 @import url(https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900);
+@import url(/font/spiritregular.css);
 
 @tailwind base;
 @tailwind components;
@@ -44,11 +45,23 @@
 }
 
 .button {
-	@apply rounded-xl bg-logo-deep-purple px-4 py-3 text-lg font-extrabold transition active:scale-95;
+	@apply rounded-xl bg-brand-background-secondary px-4 py-3 text-lg font-extrabold shadow-sm shadow-brand-background-secondary transition active:scale-95 active:shadow-none;
 }
 
 * {
 	scrollbar-color: #8400ff #161b1d;
+}
+
+h1:not(.md h1) {
+	@apply text-4xl font-black tracking-tighter sm:text-6xl;
+}
+
+h2:not(.md h2) {
+	@apply text-4xl font-black tracking-tight;
+}
+
+.spirit-heavy {
+	@apply font-spirit !text-8xl !font-normal !tracking-normal;
 }
 
 @tailwind utilities;

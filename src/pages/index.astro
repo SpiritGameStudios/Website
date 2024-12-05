@@ -1,6 +1,47 @@
 ---
 import Logo from "../components/Logo.astro";
 import Default from "../layouts/Default.astro";
+
+const headers = new Headers({
+	"User-Agent": "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
+});
+let people;
+try {
+	people = await (
+		await fetch("https://api.modrinth.com/v3/organization/spirit/members", {
+			headers: headers,
+		})
+	).json();
+} catch {
+	people = [
+		{
+			user: {
+				username: "undefined",
+				avatar_url: "/favicon.svg",
+				bio: "undefined",
+			},
+		},
+	];
+}
+
+const links = [
+	{
+		name: "GitHub",
+		to: "https://github.com/spiritgamestudios",
+	},
+	{
+		name: "Modrinth",
+		to: "https://modrinth.com/organization/spirit",
+	},
+	{
+		name: "Discord",
+		to: "https://discord.gg/TTmx7d2axf",
+	},
+	{
+		name: "YouTube",
+		to: "https://youtube.com/@spiritgamestudios",
+	},
+];
 ---
 
 <Default>
@@ -8,36 +49,31 @@ import Default from "../layouts/Default.astro";
 		<div class="flex w-fit flex-col gap-4">
 			<Logo />
 			<br class="select-none" />
-			<span class="text-4xl font-thin tracking-wider sm:text-6xl"> REDEFINING. </span>
+			<h1 class="spirit-heavy">Redefining.</h1>
 			<hr class="border-brand-border" />
 			<span> Spirit Studios is a small Minecraft modding group that makes vanilla-style mods for Fabric. </span>
 			<div class="flex flex-row flex-wrap gap-2">
-				<span class="rounded-xl bg-brand-background-secondary p-2">
-					<a href="https://github.com/spiritgamestudios"> Github </a>
-				</span>
-				<span class="rounded-xl bg-brand-background-secondary p-2">
-					<a href="https://modrinth.com/organization/spirit"> Modrinth </a>
-				</span>
+				{
+					links.map((link: any) => (
+						<span class="rounded-xl bg-brand-background-secondary p-2">
+							<a href={link.to}> {link.name} </a>
+						</span>
+					))
+				}
 			</div>
 			<div class="flex select-none flex-row flex-wrap gap-2">
-				<a target="_blank" href="https://github.com/callmeechocodes">
-					<img
-						class="h-10 w-10 rounded-full border border-brand-border"
-						src="https://github.com/callmeechocodes.png"
-					/>
-				</a>
-				<a target="_blank" href="https://github.com/hamaindustries">
-					<img
-						class="h-10 w-10 rounded-full border border-brand-border"
-						src="https://github.com/hamaindustries.png"
-					/>
-				</a>
-				<a target="_blank" href="https://github.com/worldwidepixel">
-					<img
-						class="h-10 w-10 rounded-full border border-brand-border"
-						src="https://github.com/worldwidepixel.png"
-					/>
-				</a>
+				{
+					people
+						.filter((a: any) => a.user.username.toLowerCase() !== "spiritstudios")
+						.map((person: any) => (
+							<a target="_blank" href={`https://modrinth.com/user/${person.user.username}`}>
+								<img
+									class="h-10 w-10 rounded-full border border-brand-border"
+									src={person.user.avatar_url}
+								/>
+							</a>
+						))
+				}
 			</div>
 		</div>
 	</div>

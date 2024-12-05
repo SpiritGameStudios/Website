@@ -6,6 +6,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ["Inter", ...defaultTheme.fontFamily.sans],
+				spirit: ["Spirit", "Inter", ...defaultTheme.fontFamily.mono],
 			},
 			colors: {
 				"brand-red": "#ff125e",
