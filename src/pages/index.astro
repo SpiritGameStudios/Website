@@ -1,10 +1,10 @@
 ---
-import Logo from "../components/Logo.astro";
-import Default from "../layouts/Default.astro";
+import Logo from "@components/Logo.astro";
+import Default from "@layouts/Default.astro";
+import { USERAGENT_HEADER } from "@util/Constants";
 
-const headers = new Headers({
-	"User-Agent": "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
-});
+const headers = new Headers({ "User-Agent": USERAGENT_HEADER });
+
 let people;
 try {
 	people = await (
@@ -27,7 +27,7 @@ try {
 const links = [
 	{
 		name: "GitHub",
-		to: "https://github.com/spiritgamestudios",
+		to: "https://github.com/SpiritGameStudios",
 	},
 	{
 		name: "Modrinth",

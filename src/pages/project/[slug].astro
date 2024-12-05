@@ -1,6 +1,7 @@
 ---
 import { Markdown } from "@astropub/md";
 import Default from "@layouts/Default.astro";
+import { USERAGENT_HEADER } from "@util/Constants";
 
 export async function getStaticPaths() {
 	const headers = new Headers({
@@ -28,9 +29,7 @@ export async function getStaticPaths() {
 	return paths;
 }
 
-const headers = new Headers({
-	"User-Agent": "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
-});
+const headers = new Headers({ "User-Agent": USERAGENT_HEADER });
 let projects;
 try {
 	const collection_data = await (

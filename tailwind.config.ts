@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-const defaultTheme = require("tailwindcss/defaultTheme");
+import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
+
 export default {
 	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
 	theme: {
@@ -24,7 +25,10 @@ export default {
 				"brand-border": "#21292c",
 				"brand-text": "#ffffff",
 			},
+			borderColor: {
+				DEFAULT: "#21292C",
+			},
 		},
 	},
 	plugins: [],
-};
+} satisfies Config;

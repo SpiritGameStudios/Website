@@ -11,8 +11,10 @@
 @tailwind base;
 @tailwind components;
 
-* {
-	@apply border-brand-border;
+@layer components {
+	.button {
+		@apply rounded-xl bg-brand-background-secondary px-4 py-3 text-lg font-extrabold shadow-sm shadow-brand-background-secondary transition active:scale-95 active:shadow-none;
+	}
 }
 
 .bgimg {
@@ -49,10 +51,6 @@
 
 ::-webkit-scrollbar {
 	width: 1rem;
-}
-
-.button {
-	@apply rounded-xl bg-brand-background-secondary px-4 py-3 text-lg font-extrabold shadow-sm shadow-brand-background-secondary transition active:scale-95 active:shadow-none;
 }
 
 * {
