@@ -4,11 +4,8 @@ import Logotype from "../components/Logotype.astro";
 import "../styles/global.css";
 import { Box, UsersRound, Heart } from "lucide-astro";
 let { title } = Astro.props;
-if (title === "" || title === undefined) {
-	title = "Spirit Studios";
-} else {
-	title += " | Spirit Studios";
-}
+
+title = title === "" || title === undefined ? "Spirit Studios" : `${title} | Spirit Studios`;
 ---
 
 <!doctype html>
@@ -32,6 +29,7 @@ if (title === "" || title === undefined) {
 		<meta property="og:title" content="Spirit Studios" />
 		<meta property="og:url" content="https://spiritstudios.dev" />
 		<meta property="og:image" content="https://spiritstudios.dev/og.png" />
+		<meta property="twitter:card" content="summary_large_image" />
 		<meta
 			property="og:description"
 			content="Spirit Studios is a small Minecraft modding group that makes vanilla-style mods for Fabric."

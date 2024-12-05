@@ -1,27 +1,25 @@
 ---
-import PersonCard from "../components/PersonCard.astro";
-import Default from "../layouts/Default.astro";
+import PersonCard from "@components/PersonCard.astro";
+import Default from "@layouts/Default.astro";
 const headers = new Headers({
-	"User-Agent": "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
+	"User-Agent": "spiritgamestudios/landing, @worldwidepixel or @callmeecho on discord.",
 });
-let people;
-try {
-	people = await (
-		await fetch("https://api.modrinth.com/v3/organization/spirit/members", {
-			headers: headers,
-		})
-	).json();
-} catch {
-	people = [
-		{
-			user: {
-				username: "undefined",
-				avatar_url: "/favicon.svg",
-				bio: "undefined",
+
+const response = await fetch("https://api.modrinth.com/v3/organization/spirit/members", {
+	headers: headers,
+});
+
+const people = response.ok
+	? await response.json()
+	: [
+			{
+				user: {
+					username: "undefined",
+					avatar_url: "/favicon.svg",
+					bio: "undefined",
+				},
 			},
-		},
-	];
-}
+		];
 ---
 
 <Default title="People">
