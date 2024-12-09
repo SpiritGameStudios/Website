@@ -1,5 +1,6 @@
 ---
 import { Markdown } from "@astropub/md";
+import Button from "@components/Button.astro";
 import Default from "@layouts/Default.astro";
 import { USERAGENT_HEADER } from "@util/Constants";
 
@@ -79,12 +80,19 @@ for (let i = 0; i < project.gallery.length; i++) {
 				</div>
 			</div>
 			<div class="flex flex-row items-start gap-2">
-				<a href={"https://modrinth.com/project/" + (slug ?? "undefined")} class="button">Modrinth</a>
-				<a href={links.source.url ?? "https://github.com/spiritgamestudios"} class="button">Github</a>
+				<Button
+					class="h-12 rounded-xl bg-brand-background-secondary text-[#1BD96A]"
+					href={"https://modrinth.com/project/" + (slug ?? "undefined")}
+					icon="simple-icons:modrinth"
+				/>
+				<Button
+					class="h-12 rounded-xl bg-brand-background-secondary text-[#FAFBFC]"
+					href={links.source.url ?? "https://github.com/spiritgamestudios"}
+					icon="simple-icons:github"
+				/>
 			</div>
 		</div>
 		<hr />
-		<span class="py-2 font-light tracking-widest">DESCRIPTION</span>
 		<div class="md">
 			<Markdown of={desc} />
 		</div>

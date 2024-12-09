@@ -1,8 +1,9 @@
 ---
-import "../components/Logotype.astro";
+import Link from "@components/Link.astro";
+import "@components/Logotype.astro";
+import { Icon } from "astro-icon/components";
 import Logotype from "../components/Logotype.astro";
 import "../styles/global.css";
-import { Box, UsersRound, Heart } from "lucide-astro";
 let { title } = Astro.props;
 
 title = title === "" || title === undefined ? "Spirit Studios" : `${title} | Spirit Studios`;
@@ -44,14 +45,11 @@ title = title === "" || title === undefined ? "Spirit Studios" : `${title} | Spi
 					</a>
 				</div>
 				<div class="flex flex-row items-center gap-2 gap-x-6 font-extrabold tracking-widest">
-					<a class="hover:underline" href="/projects">
-						<span class="hidden sm:block">PROJECTS</span>
-						<span class="block sm:hidden"><Box /></span>
-					</a>
-					<a class="hover:underline" href="/people">
-						<span class="hidden sm:block">PEOPLE</span>
-						<span class="block sm:hidden"><UsersRound /></span>
-					</a>
+					<Link class="hidden sm:block" href="/projects"> PROJECTS </Link>
+					<a class="block sm:hidden" href="/projects"><Icon name="lucide:box" /></a>
+
+					<Link class="hidden sm:block" href="/people"> PEOPLE </Link>
+					<a class="block sm:hidden" href="/people"><Icon name="lucide:users-round" /></a>
 				</div>
 			</div>
 		</nav>
@@ -63,7 +61,7 @@ title = title === "" || title === undefined ? "Spirit Studios" : `${title} | Spi
 		<footer class="flex w-full flex-row justify-center border-t">
 			<div class="w-full max-w-[72rem] p-6">
 				<span class="flex flex-row gap-0">
-					Made with <Heart class="p-1" /> by Spirit Studios.
+					Made with <Icon name="lucide:heart" class="m-1" /> by Spirit Studios.
 				</span>
 			</div>
 		</footer>
