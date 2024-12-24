@@ -58,15 +58,15 @@
 }
 
 h1:not(.md h1) {
-	@apply text-4xl font-black tracking-tighter sm:text-6xl;
+	@apply text-brand-text-strong text-4xl font-black tracking-tighter sm:text-6xl;
 }
 
 h2:not(.md h2) {
-	@apply text-4xl font-black tracking-tight;
+	@apply text-brand-text-strong text-4xl font-black tracking-tight;
 }
 
 .spirit-heavy {
-	@apply font-spirit !text-8xl !font-normal !tracking-normal;
+	@apply text-brand-text-strong font-spirit !text-8xl !font-normal !tracking-normal;
 }
 
 @tailwind utilities;

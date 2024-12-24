@@ -45,7 +45,8 @@ export default {
 				"brand-background": "#0b0d0e",
 				"brand-background-secondary": "#161b1d",
 				"brand-border": "#21292c",
-				"brand-text": "#ffffff",
+				"brand-text": "#f6f5fa",
+				"brand-text-strong": "#ffffff",
 			},
 			borderColor: {
 				DEFAULT: "#21292C",
