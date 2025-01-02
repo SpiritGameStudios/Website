@@ -1,2 +1,3 @@
-# spirit-landing
- Landing page for Spirit Studios.
+# Website
+
+This is our website! Cool, innit?
