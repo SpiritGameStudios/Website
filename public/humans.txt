@@ -1,0 +1,20 @@
+███████╗██████╗ ██╗██████╗ ██╗████████╗    ███████╗████████╗██╗   ██╗██████╗ ██╗ ██████╗ ███████╗
+██╔════╝██╔══██╗██║██╔══██╗██║╚══██╔══╝    ██╔════╝╚══██╔══╝██║   ██║██╔══██╗██║██╔═══██╗██╔════╝
+███████╗██████╔╝██║██████╔╝██║   ██║       ███████╗   ██║   ██║   ██║██║  ██║██║██║   ██║███████╗
+╚════██║██╔═══╝ ██║██╔══██╗██║   ██║       ╚════██║   ██║   ██║   ██║██║  ██║██║██║   ██║╚════██║
+███████║██║     ██║██║  ██║██║   ██║       ███████║   ██║   ╚██████╔╝██████╔╝██║╚██████╔╝███████║
+╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝   ╚═╝       ╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═╝ ╚═════╝ ╚══════╝
+
+Oh, hi there!
+
+Seems you care enough to look for a random page on our site!
+Well, since you're here...
+
+Spirit Studios is made by three lovely humans, that being
+- CallMeEcho (https://callmeecho.dev)
+- hama (https://github.com/HamaIndustries)
+- WorldWidePixel (https://worldwidepixel.ca)
+
+Learn more on our actual website.
+
+<3 Spirit Team
