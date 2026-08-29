@@ -20,7 +20,7 @@
 		"typescript": "^7.0.2"
 	},
 	"devDependencies": {
-		"@iconify-json/lucide": "^1.2.127",
+		"@iconify-json/lucide": "^1.2.126",
 		"@iconify-json/simple-icons": "^1.2.94",
 		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",
