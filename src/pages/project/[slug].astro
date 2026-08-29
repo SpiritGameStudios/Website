@@ -3,10 +3,11 @@ import { Markdown } from "@astropub/md";
 import Button from "@components/Button.astro";
 import Default from "@layouts/Default.astro";
 import { USERAGENT_HEADER } from "@util/Constants";
+import { marked } from "marked";
 
 export async function getStaticPaths() {
 	const headers = new Headers({
-		"User-Agent": "spiritgamestudiosstudios/landing, @worldwidepixel or @callmeecho on discord.",
+		"User-Agent": "SpiritGameStudios/Website, @worldwidepixel or @callmeecho on discord.",
 	});
 	let spiritProjects;
 	try {
@@ -67,6 +68,8 @@ for (let i = 0; i < project.gallery.length; i++) {
 		banner = project.gallery[i].url;
 	}
 }
+
+const content = marked.parse(desc);
 ---
 
 <Default title={title ?? "Undefined Project"}>
@@ -81,12 +84,12 @@ for (let i = 0; i < project.gallery.length; i++) {
 			</div>
 			<div class="flex flex-row items-start gap-2">
 				<Button
-					class="h-12 rounded-xl bg-brand-background-secondary text-[#1BD96A]"
+					class="bg-ui-background-secondary h-12 rounded-xl text-[#1BD96A]"
 					href={"https://modrinth.com/project/" + (slug ?? "undefined")}
 					icon="simple-icons:modrinth"
 				/>
 				<Button
-					class="h-12 rounded-xl bg-brand-background-secondary text-[#FAFBFC]"
+					class="bg-ui-background-secondary h-12 rounded-xl text-[#FAFBFC]"
 					href={links.source.url ?? "https://github.com/spiritgamestudios"}
 					icon="simple-icons:github"
 				/>
@@ -94,11 +97,11 @@ for (let i = 0; i < project.gallery.length; i++) {
 		</div>
 		<hr />
 		<div class="md">
-			<Markdown of={desc} />
+			<article set:html={content} />
 		</div>
+		<img
+			src={banner ?? "/favicon.svg"}
+			class="bgimg absolute top-0 left-0 z-[-2] h-[25%] w-full object-cover blur-[5vh]"
+		/>
 	</div>
-	<img
-		src={banner ?? "/favicon.svg"}
-		class="bgimg absolute left-0 top-0 z-[-2] h-[25%] w-full object-cover blur-[5vh]"
-	/>
 </Default>

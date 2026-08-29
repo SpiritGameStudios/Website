@@ -17,38 +17,38 @@ const data: TeamMember[] = await response.json();
 			<Logo />
 			<br class="select-none" />
 			<h1 class="spirit-heavy">Redefining.</h1>
-			<hr class="border-brand-border" />
+			<hr class="border-ui-border" />
 			<span>
 				Spirit Studios is a small Minecraft modding group that makes high-quality and fun mods for Fabric.
 			</span>
 			<div class="flex flex-row flex-wrap gap-2">
 				<Button
-					class="rounded-xl bg-brand-background-secondary p-2 text-[#FAFBFC]"
+					class="bg-ui-background-secondary rounded-xl p-2 text-[#FAFBFC]"
 					href="https://github.com/SpiritGameStudios"
 					icon="simple-icons:github"
 				/>
 				<Button
-					class="rounded-xl bg-brand-background-secondary p-2 text-[#1BD96A]"
+					class="bg-ui-background-secondary rounded-xl p-2 text-[#1BD96A]"
 					href="https://modrinth.com/organization/spirit"
 					icon="simple-icons:modrinth"
 				/>
 				<Button
-					class="rounded-xl bg-brand-background-secondary p-2 text-[#5865F2]"
+					class="bg-ui-background-secondary rounded-xl p-2 text-[#5865F2]"
 					href="https://discord.gg/TTmx7d2axf"
 					icon="simple-icons:discord"
 				/>
 				<Button
-					class="rounded-xl bg-brand-background-secondary p-2 text-[#FE0032]"
+					class="bg-ui-background-secondary rounded-xl p-2 text-[#FE0032]"
 					href="https://youtube.com/@spiritgamestudios"
 					icon="simple-icons:youtube"
 				/>
 				<Button
-					class="rounded-xl bg-brand-background-secondary p-2 text-[#1185FE]"
+					class="bg-ui-background-secondary rounded-xl p-2 text-[#1185FE]"
 					href="https://bsky.app/profile/spiritstudios.dev"
 					icon="simple-icons:bluesky"
 				/>
 			</div>
-			<div class="flex select-none flex-row flex-wrap gap-2">
+			<div class="flex flex-row flex-wrap gap-2 select-none">
 				{
 					data
 						.filter((a) => a.user.username.toLowerCase() !== "spiritstudios")
@@ -58,7 +58,7 @@ const data: TeamMember[] = await response.json();
 								href={`https://modrinth.com/user/${person.user.username}`}
 								class="ease-custom-1 transition-transform hover:translate-y-[-10%] active:translate-y-[10%]">
 								<img
-									class="h-10 w-10 rounded-full border border-brand-border"
+									class="border-ui-border h-10 w-10 rounded-full border"
 									src={person.user.avatar_url == null ? " " : person.user.avatar_url}
 								/>
 							</a>
