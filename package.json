@@ -10,18 +10,18 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"@astrojs/check": "^0.9.4",
+		"@astrojs/check": "^0.9.10",
 		"@astropub/md": "^1.0.0",
 		"@tailwindcss/vite": "^4.3.3",
-		"astro": "^5.0.2",
+		"astro": "^7.2.9",
 		"astro-icon": "^1.2.0",
 		"marked": "^18.0.11",
 		"tailwindcss": "^4.3.3",
-		"typescript": "^5.5.4"
+		"typescript": "^7.0.2"
 	},
 	"devDependencies": {
 		"@iconify-json/lucide": "^1.2.127",
-		"@iconify-json/simple-icons": "^1.2.15",
+		"@iconify-json/simple-icons": "^1.2.94",
 		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",
 		"prettier-plugin-tailwindcss": "^0.8.1"
