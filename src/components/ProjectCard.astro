@@ -1,5 +1,5 @@
 ---
-const { title, summary, icon, gallery, links, slug } = Astro.props;
+const { title, summary, icon, gallery, slug } = Astro.props;
 let featuredImage = "";
 for (let i = 0; i < gallery.length; i++) {
 	if (gallery[i].featured === true) {
@@ -10,7 +10,7 @@ for (let i = 0; i < gallery.length; i++) {
 
 <a
 	href={slug ? `/project/${slug}` : "https://github.com/spiritgamestudios"}
-	class="relative rounded-3xl border transition hover:shadow-md hover:shadow-brand-background-secondary active:scale-[99%]">
+	class="hover:shadow-brand-background-secondary relative rounded-3xl border transition hover:shadow-md active:scale-[99%]">
 	<div class="flex flex-row items-center gap-4 p-6">
 		<img class="h-24 w-24 flex-none rounded-xl" src={icon ?? "undefined"} />
 		<div class="flex flex-col justify-center">
@@ -19,7 +19,7 @@ for (let i = 0; i < gallery.length; i++) {
 		</div>
 	</div>
 	<div
-		class="cardbg absolute left-0 top-0 z-[-1] h-full w-full rounded-3xl bg-cover bg-center bg-no-repeat object-cover"
+		class="cardbg absolute top-0 left-0 z-[-1] h-full w-full rounded-3xl bg-cover bg-center bg-no-repeat object-cover"
 		style={{ backgroundImage: `url(${featuredImage})` }}>
 	</div>
 </a>
