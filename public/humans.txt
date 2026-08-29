@@ -10,11 +10,25 @@ Oh, hi there!
 Seems you care enough to look for a random page on our site!
 Well, since you're here...
 
-Spirit Studios is made by three lovely humans, that being
+Spirit Studios was founded by three lovely humans (well, living beings at the very least), that being:
 - CallMeEcho (https://callmeecho.dev)
 - hama (https://github.com/HamaIndustries)
 - WorldWidePixel (https://worldwidepixel.ca)
 
-Learn more on our actual website.
+Along the way, we've been able to wrangle some more help, with our lovely team comprising of:
+- Axialeaa (https://linktr.ee/axialeaa)
+- Kilip1000 (https://modrinth.com/user/Kilip1000)
+- SkyNotTheLimit (https://modrinth.com/user/SkyNotTheLimit)
+- Superkat32 (https://modrinth.com/user/Superkat32)
+
+(and the three at the top, too!)
+
+Learn more on our actual website. (https://spiristudios.dev!)
 
 <3 Spirit Team
+
+┌───────────────────────────────────┐
+│                            ┌────┐ │
+│   I'm not a robot          │    │ │
+│   UnCAPTCHA by lynn <3     └────┘ │
+└───────────────────────────────────┘
