@@ -1,23 +1,21 @@
-@import url(https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,800,900);
 @import "tailwindcss";
 
 @theme {
 	--font-sans:
-		Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-		"Noto Color Emoji";
+		"Atkinson Hyperlegible Next Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--font-spirit:
-		Spirit, Inter, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-		monospace;
+		"Spirit", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
 	--color-brand-red: #ff0d2eff;
 	--color-brand-orange: #ff690fff;
-	--color-brand-yellow: f1bf00ff;
+	--color-brand-yellow: #f1bf00ff;
 	--color-brand-green: #00ae54ff;
 	--color-brand-blue: #2b39feff;
 	--color-brand-violet: #b300ffff;
 	--color-brand-red-dark: #db003eff;
 	--color-brand-orange-dark: #e54a00ff;
-	--color-brand-yellow-dark: d19100ff;
+	--color-brand-yellow-dark: #d19100ff;
 	--color-brand-green-dark: #008d3aff;
 	--color-brand-blue-dark: #012ae0ff;
 	--color-brand-violet-dark: #8400ffff;
@@ -41,7 +39,7 @@
 	--color-logo-blue: #2b39fe;
 
 	--color-ui-background: #0b0d0e;
-	--color-ui-background-secondary: #161b1d;
+	--color-ui-background-secondary: #101919;
 	--color-ui-border: #21292c;
 	--color-ui-text: #f6f5fa;
 	--color-ui-text-strong: #ffffff;
@@ -53,7 +51,12 @@
 		font-style: normal;
 		font-weight: 100;
 		font-stretch: 100%;
+		font-display: fallback;
 		src: url("/fonts/SpiritRegular.ttf") format("truetype");
+	}
+
+	::-webkit-scrollbar {
+		width: 1rem;
 	}
 
 	*,
@@ -61,7 +64,31 @@
 	::before,
 	::backdrop,
 	::file-selector-button {
-		@apply border-ui-border;
+		scrollbar-color: #8400ff #161b1d;
+
+		@apply border-ui-border select-none;
+	}
+}
+
+@layer utilities {
+	.rendering-pixelated {
+		image-rendering: pixelated;
+		image-rendering: -moz-crisp-edges;
+		image-rendering: crisp-edges;
+	}
+
+	/* Layout styles */
+	.layout-header-nine-slice {
+		border-image: url(/assets/textures/layout/header_background.png) 5 5 5 5 fill / 240px 240px 240px 240px;
+	}
+
+	.layout-main-nine-slice {
+		border-image: url(/assets/textures/layout/main_background.png) 5 5 5 5 fill / 40px 40px 40px 40px;
+	}
+
+	/* Background image size utils */
+	.bg-size-sm {
+		background-size: --spacing(256);
 	}
 }
 
@@ -104,14 +131,6 @@
 
 	.md iframe {
 		@apply aspect-video w-2xl max-w-full;
-	}
-
-	::-webkit-scrollbar {
-		width: 1rem;
-	}
-
-	* {
-		scrollbar-color: #8400ff #161b1d;
 	}
 
 	h1:not(.md h1) {

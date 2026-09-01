@@ -1,16 +1,22 @@
 ---
-import Link from "@components/Link.astro";
+import "../styles/global.css";
+import "@fontsource-variable/atkinson-hyperlegible-next/wght.css";
+import "@fontsource-variable/atkinson-hyperlegible-next/wght-italic.css";
+
 import "@components/Logotype.astro";
 import { Icon } from "astro-icon/components";
 import Logotype from "../components/Logotype.astro";
-import "../styles/global.css";
+import Level from "@components/interactive/Level.svelte";
+
 let { title } = Astro.props;
 
-title = title === "" || title === undefined ? "Spirit Studios" : `${title} | Spirit Studios`;
+title = title === "" || title === undefined ? "Spirit Studios" : `${title} ◊ Spirit Studios`;
 ---
 
 <!doctype html>
-<html class="bg-ui-background text-ui-text h-full">
+<html
+	style=`background-image: url(/assets/textures/layout/background_tile.png)`
+	class="text-ui-text rendering-pixelated h-full bg-repeat">
 	<head>
 		<title>{title}</title>
 		<meta charset="utf-8" />
@@ -38,30 +44,34 @@ title = title === "" || title === undefined ? "Spirit Studios" : `${title} | Spi
 		<meta name="theme-color" content="#8400ff" />
 	</head>
 	<body class="flex h-dvh flex-col">
-		<nav class="flex w-full flex-row justify-center border-b">
-			<div class="flex w-full max-w-6xl flex-row items-center justify-center gap-4 p-6 sm:justify-between">
-				<div class="flex flex-row items-center gap-2 gap-x-6 font-bold tracking-widest">
-					<a href="/">
+		<nav class="flex w-full flex-row justify-center p-2">
+			<div
+				class="layout-header-nine-slice flex w-full max-w-5xl flex-row items-center justify-center gap-4 sm:justify-between">
+				<div class="flex h-full flex-row items-center gap-2 font-bold">
+					<a class="px-8 py-6" href="/">
 						<Logotype />
 					</a>
 				</div>
-				<div
-					class="text-ui-text-strong flex flex-row items-center gap-2 gap-x-6 font-extrabold tracking-widest">
-					<Link class="hidden sm:block" href="/projects"> PROJECTS </Link>
-					<a class="block sm:hidden" href="/projects"><Icon name="lucide:box" /></a>
-
-					<Link class="hidden sm:block" href="/people"> PEOPLE </Link>
-					<a class="block sm:hidden" href="/people"><Icon name="lucide:users-round" /></a>
+				<div class="text-ui-text-strong flex flex-row gap-2 gap-x-6 px-8 py-6 text-lg">
+					<a href="/projects">Projects</a>
+					<a href="/people">People</a>
 				</div>
 			</div>
 		</nav>
-		<main class="flex w-full flex-auto flex-row items-center justify-center">
-			<div class="w-full max-w-6xl p-6">
+		<main class="flex w-full flex-auto flex-row items-center justify-center px-2">
+			<div class="layout-main-nine-slice h-full w-full max-w-5xl px-8 py-8">
 				<slot />
 			</div>
 		</main>
-		<footer class="flex w-full flex-row justify-center border-t">
-			<div class="w-full max-w-6xl p-6">
+		<footer class="flex w-full flex-col items-center px-2 pt-2">
+			<div class="bg-size-sm w-full max-w-5xl border-x-8">
+				<Level size={16} client:load />
+			</div>
+			<div
+				class="bg-size-sm h-64 w-full max-w-5xl border-x-8"
+				style=`background-image: url(/assets/textures/layout/footer_terrain.png)`>
+			</div>
+			<div class="bg-ui-background-secondary w-full max-w-5xl border-x-8 border-[#1a2323] p-6">
 				<span class="flex flex-row gap-0">
 					Made with <Icon name="lucide:heart" class="m-1" /> by Spirit Studios.
 				</span>

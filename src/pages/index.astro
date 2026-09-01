@@ -60,6 +60,7 @@ const data: TeamMember[] = await response.json();
 								<img
 									class="border-ui-border h-10 w-10 rounded-full border"
 									src={person.user.avatar_url == null ? " " : person.user.avatar_url}
+									draggable="false"
 								/>
 							</a>
 						))
