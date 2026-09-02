@@ -1,302 +1,68 @@
 <script lang="ts">
-	const { size }: { size: number } = $props();
+	import { namedBlocks, type Block } from "@util/level/blocks";
+	import { getBlock, type LevelState } from "@util/level/level";
+	import BlockWrapper from "@components/interactive/BlockWrapper.svelte";
 
-	type Block = {
-		texture: string;
-		action?: (event: Event) => void;
-	};
+	const { blockSize }: { blockSize: number } = $props();
 
-	const blocks: { [key: string]: Block } = {
-		stone: {
-			texture: "/assets/textures/block/stone.png",
+	const level: LevelState = $state({
+		pattern: {
+			"-": null,
+			S: namedBlocks.stone,
+			G: namedBlocks.grass_block,
+			D: namedBlocks.dirt,
+			B: namedBlocks.sand,
+			R: namedBlocks.gravel,
+			C: namedBlocks.coal_ore,
+			I: namedBlocks.iron_ore,
+			N: namedBlocks.granite,
+			T: namedBlocks.diorite,
+			A: namedBlocks.seagrass,
+			O: namedBlocks.sunbloomed_floropumice,
+			"~": namedBlocks.water,
+			"[": [namedBlocks.sunbloomed_petaleaves, namedBlocks.water],
+			"]": [namedBlocks.sunbloomed_petaleaves, namedBlocks.water],
+			"{": [namedBlocks.sunbloomed_petaleaves, namedBlocks.water],
+			"}": [namedBlocks.sunbloomed_petaleaves, namedBlocks.water],
+			W: namedBlocks.mallowbloom_floropumice,
+			"<": [namedBlocks.mallowbloom_petaleaves, namedBlocks.water],
+			">": [namedBlocks.mallowbloom_petaleaves, namedBlocks.water],
+			"?": [namedBlocks.mallowbloom_petaleaves, namedBlocks.water],
+			"0": namedBlocks.water_surface,
+			"!": [namedBlocks.seagrass, namedBlocks.water],
+			"@": [namedBlocks.seagrass, namedBlocks.water],
+			"#": [namedBlocks.seagrass, namedBlocks.water],
+			$: [namedBlocks.seagrass, namedBlocks.water],
+			"^": [namedBlocks.seagrass, namedBlocks.water],
 		},
-		grass_block: {
-			texture: "/assets/textures/block/grass_block.png",
-		},
-		dirt: {
-			texture: "/assets/textures/block/dirt.png",
-		},
-		sand: {
-			texture: "/assets/textures/block/sand.png",
-		},
-		gravel: {
-			texture: "/assets/textures/block/gravel.png",
-		},
-		coal_ore: {
-			texture: "/assets/textures/block/coal_ore.png",
-		},
-		iron_ore: {
-			texture: "/assets/textures/block/iron_ore.png",
-		},
-		granite: {
-			texture: "/assets/textures/block/granite.png",
-		},
-		diorite: {
-			texture: "/assets/textures/block/diorite.png",
-		},
-		seagrass: {
-			texture: "/assets/textures/block/seagrass.png",
-		},
-		sunbloomed_floropumice: {
-			texture: "/assets/textures/block/sunbloomed_floropumice.png",
-		},
-		sunbloomed_petaleaves: {
-			texture: "/assets/textures/block/sunbloomed_petaleaves.png",
-		},
-		mallowbloom_floropumice: {
-			texture: "/assets/textures/block/mallowbloom_floropumice.png",
-		},
-		mallowbloom_petaleaves: {
-			texture: "/assets/textures/block/mallowbloom_petaleaves.png",
-		},
-		water_surface: {
-			texture: "/assets/textures/block/water_surface.png",
-		},
-		water_depth_1: {
-			texture: "/assets/textures/block/water_depth_1.png",
-		},
-		water_depth_2: {
-			texture: "/assets/textures/block/water_depth_2.png",
-		},
-		water_depth_3: {
-			texture: "/assets/textures/block/water_depth_3.png",
-		},
-		water_depth_4: {
-			texture: "/assets/textures/block/water_depth_4.png",
-		},
-		water_depth_5: {
-			texture: "/assets/textures/block/water_depth_5.png",
-		},
-		water_depth_6: {
-			texture: "/assets/textures/block/water_depth_6.png",
-		},
-	};
-
-	const levelState: (Block | Block[] | null)[][] = [
-		[null, null, null, null, null, null, blocks.grass_block, blocks.grass_block, blocks.grass_block],
-		[
-			null,
-			null,
-			null,
-			blocks.grass_block,
-			blocks.grass_block,
-			null,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.grass_block,
-			blocks.grass_block,
-			blocks.grass_block,
-			blocks.grass_block,
+		blocks: [
+			"------GGG",
+			"---GG-DDDGGGG",
+			"--GDDGDDDDDDDG",
+			"GGDDDDDDSSDDDDGG",
+			"DDSSSDDSSSSSSDDDBBB~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+			"DDSSSSSS----SSSDDSSB~!~~~~~~<~~~~~~~~~~~~~~!~B",
+			"SSSS----------SSSSSSBB@@~~~~>>~~~[~~~~~~~~~BBB",
+			"SS-------------SSSSSSDDDD~~?W?~~~]]~~~~~~~#SSS",
+			"S--------------SSSSSSSDDDDD~W~~~{{O~~$$~~BBSSS",
+			"R--------------SSSTSSSSSSSBBB~~~}O~~~BBBDDSIIS",
+			"R-------------SSSTTTTSISSSSSBB^^~OBBBBDDDSSSII",
+			"RR---------CCSSSSTTTSSIIISSSSSBBBBBDDSSSSSSSSS",
+			"SRRS-----SCCSSSSSSSTSSSIIISSSSSSSSSSSSSSNNSSSS",
+			"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSNNNNNSSS",
 		],
-		[
-			null,
-			null,
-			blocks.grass_block,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.grass_block,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.grass_block,
-		],
-		[
-			blocks.grass_block,
-			blocks.grass_block,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.stone,
-			blocks.stone,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.grass_block,
-			blocks.grass_block,
-		],
-		[
-			blocks.dirt,
-			blocks.dirt,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.sand,
-			blocks.sand,
-			blocks.sand,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-			blocks.water_surface,
-		],
-		[
-			blocks.dirt,
-			blocks.dirt,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			null,
-			null,
-			null,
-			null,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.dirt,
-			blocks.dirt,
-			blocks.stone,
-			blocks.stone,
-			blocks.sand,
-			blocks.water_depth_1,
-			[blocks.seagrass, blocks.water_depth_1],
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			blocks.water_depth_1,
-			[blocks.seagrass, blocks.water_depth_1],
-			blocks.water_depth_1,
-			blocks.sand,
-		],
-		[
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			null,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.stone,
-			blocks.sand,
-			blocks.sand,
-			[blocks.seagrass, blocks.water_depth_2],
-			[blocks.seagrass, blocks.water_depth_2],
-			[blocks.seagrass, blocks.water_depth_2],
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.water_depth_2,
-			blocks.sand,
-			blocks.sand,
-			blocks.sand,
-		],
-	];
+	});
 </script>
 
 <div class="flex flex-col">
-	{#each levelState as levelRow}
+	{#each level.blocks as levelRow, iterY}
 		<div class="flex flex-row">
-			{#each levelRow as block}
-				{#if block && !Array.isArray(block)}
-					<!-- svelte-ignore a11y_click_events_have_key_events -->
-					<!-- svelte-ignore a11y_no_static_element_interactions -->
-					<div
-						onclick={block.action || (() => {})}
-						style="width: {size}px; height: {size}px; background-image: url({block.texture}); background-size: {size}px">
-					</div>
-				{:else if Array.isArray(block)}
-					<div class="relative" style="width: {size}px; height: {size}px;">
-						{#each block as layer, iteration}
-							<!-- svelte-ignore a11y_click_events_have_key_events -->
-							<!-- svelte-ignore a11y_no_static_element_interactions -->
-							<div
-								onclick={layer.action || (() => {})}
-								class="top-0 absolute"
-								style="z-index: {0 -
-									(block.length +
-										iteration)}; width: {size}px; height: {size}px; background-image: url({layer.texture}); background-size: {size}px">
-							</div>
-						{/each}
-					</div>
-				{:else}
-					<div style="width: {size}px; height: {size}px;"></div>
-				{/if}
+			{#each levelRow as block, iterX}
+				<BlockWrapper
+					size={blockSize}
+					x={iterX}
+					y={level.blocks.length - iterY - 1}
+					blockData={getBlock(block, level.pattern)} />
 			{/each}
 		</div>
 	{/each}
