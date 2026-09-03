@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { namedBlocks, type VariantValue } from "@util/level/blocks";
+	import { type VariantValue } from "@util/level/blocks";
 	import type { LevelGridSpace } from "@util/level/level";
 
 	const {
@@ -19,53 +19,32 @@
 				})
 			: value; // static textures
 	};
-
-	const computeProperties = (value: string[] | VariantValue<string>[]) => {
-		const properties = [];
-
-		for (const layer of value) {
-			if (typeof layer === "string") {
-				properties.push(layer);
-			} else {
-				properties.push(
-					layer({
-						x,
-						y,
-						biome: gridSpace.biome,
-					}),
-				);
-			}
-		}
-
-		return properties;
-	};
 </script>
 
 <div class="relative">
-	{#if gridSpace.block}
-		{@const blockTextures = computeProperties(gridSpace.block.textures)}
-		{@const blockTextureTint = gridSpace.block.textureTint
-			? computeProperty(gridSpace.block.textureTint)
-			: undefined}
-		{@const blockTextureMask = gridSpace.block.textureMask
-			? computeProperty(gridSpace.block.textureMask)
-			: undefined}
+	{@html `<!-- ${x}, ${y} -->`}
 
-		{#each blockTextures as texture}
+	{#if gridSpace.block}
+		{@html `<!-- block/${gridSpace.block.id} -->`}
+		{#each gridSpace.block.textures as layer, iteration}
+			{@const layerTexture = computeProperty(layer.path)}
+			{@const layerTextureMask = layer.maskPath ? computeProperty(layer.maskPath) : undefined}
+			{@const layerTint = layer.tint ? computeProperty(layer.tint) : undefined}
+
 			<!-- These blocks are not useful buttons for page navigation. <3 lynn -->
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
-				class="top-0"
+				class="top-0 left-0 absolute"
 				onclick={gridSpace.block?.action || (() => {})}
 				style={[
 					`width: ${size}px;`,
 					`height: ${size}px;`,
-					`z-index: ${0 - (blockTextures.length - 1)};`,
-					`background-image: url(${texture});`,
+					`z-index: ${0 - iteration};`,
+					`background-image: url(${layerTexture});`,
 					`background-size: ${size}px;`,
-					blockTextureTint ? `background-color: ${blockTextureTint}; background-blend-mode: multiply;` : null,
-					blockTextureMask ? `mask: url(${blockTextureMask}) alpha 0 0/${size}px ${size}px;` : null,
+					layerTextureMask ? `mask: url(${layerTextureMask}) alpha 0 0/${size}px ${size}px;` : null,
+					layerTint ? `background-color: ${layerTint}; background-blend-mode: multiply;` : null,
 					style,
 				].join(" ")}>
 			</div>
@@ -73,29 +52,30 @@
 	{/if}
 
 	{#if gridSpace.fluid}
-		{@const fluidTexture = computeProperty(gridSpace.fluid.texture)}
-		{@const fluidTextureTint = gridSpace.fluid.textureTint
-			? computeProperty(gridSpace.fluid.textureTint)
-			: undefined}
-		{@const fluidTextureMask = gridSpace.fluid.textureMask
-			? computeProperty(gridSpace.fluid.textureMask)
-			: undefined}
+		{@html `<!-- fluid/${gridSpace.fluid.id} -->`}
+		{#each gridSpace.fluid.textures as layer, iteration}
+			{@const layerTexture = computeProperty(layer.path)}
+			{@const layerTextureMask = layer.maskPath ? computeProperty(layer.maskPath) : undefined}
+			{@const layerTint = layer.tint ? computeProperty(layer.tint) : undefined}
+			{@const zedOffset = gridSpace.block ? -1 * gridSpace.block.textures.length : 0}
 
-		<!-- These blocks are not useful buttons for page navigation. <3 lynn -->
-		<!-- svelte-ignore a11y_click_events_have_key_events -->
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div
-			class="absolute top-0 -z-1"
-			onclick={gridSpace.block?.action || (() => {})}
-			style={[
-				`width: ${size}px;`,
-				`height: ${size}px;`,
-				`background-image: url(${fluidTexture});`,
-				`background-size: ${size}px;`,
-				fluidTextureTint ? `background-color: ${fluidTextureTint}; background-blend-mode: multiply;` : null,
-				fluidTextureMask ? `mask: url(${fluidTextureMask}) alpha 0 0/${size}px ${size}px;` : null,
-				style,
-			].join(" ")}>
-		</div>
+			<!-- These blocks are not useful buttons for page navigation. <3 lynn -->
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				class="top-0 left-0 absolute"
+				onclick={gridSpace.block?.action || (() => {})}
+				style={[
+					`width: ${size}px;`,
+					`height: ${size}px;`,
+					`z-index: ${zedOffset - iteration};`,
+					`background-image: url(${layerTexture});`,
+					`background-size: ${size}px;`,
+					layerTextureMask ? `mask: url(${layerTextureMask}) alpha 0 0/${size}px ${size}px;` : null,
+					layerTint ? `background-color: ${layerTint}; background-blend-mode: multiply;` : null,
+					style,
+				].join(" ")}>
+			</div>
+		{/each}
 	{/if}
 </div>

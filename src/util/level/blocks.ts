@@ -1,4 +1,4 @@
-import type { Biome } from "./biomes";
+import { type Biome, defaultBiome } from "./biomes";
 
 export type TextureProps = {
 	x: number;
@@ -7,19 +7,30 @@ export type TextureProps = {
 };
 export type VariantValue<T> = (props: TextureProps) => T;
 
-export type Block = {
+export type TextureLayer = {
 	/**
-	 * Relative paths for texture layers of the block. Should be square images.
+	 * Relative path for texture layers of the block. Should be a square image.
 	 */
-	textures: string[] | VariantValue<string>[];
+	path: string | VariantValue<string>;
 	/**
-	 * An alpha mask of the current texture. Useful to avoid tinting the background of transparent textures.
+	 * An alpha mask of the current texture. Useful to avoid tinting textures underneath.
 	 */
-	textureMask?: string | VariantValue<string>;
+	maskPath?: string | VariantValue<string>;
 	/**
 	 * A colour to tint the texture. Useful for location-specific colours, like leaves and foliage.
 	 */
-	textureTint?: string | VariantValue<string>;
+	tint?: string | VariantValue<string>;
+};
+
+export type Block = {
+	/**
+	 * Unique identifier for the block.
+	 */
+	id: string;
+	/**
+	 * Definitions of texture, masks and tint layers for the block.
+	 */
+	textures: TextureLayer[];
 	/**
 	 * An action to occur on press of any occurrence of the block.
 	 * @param event The event recieved on press.
@@ -34,144 +45,141 @@ export type Fluid = {
 	 */
 	id: string;
 	/**
-	 * Relative path for texture of the block. Should be a square image.
+	 * Definitions of texture, masks and tint layers for the block.
 	 */
-	texture: string | VariantValue<string>;
-	/**
-	 * An alpha mask of the current texture. Useful to avoid tinting the background of transparent textures.
-	 */
-	textureMask?: string | VariantValue<string>;
-	/**
-	 * A colour to tint the texture. Useful for location-specific colours, like leaves and foliage.
-	 */
-	textureTint?: string | VariantValue<string>;
+	textures: TextureLayer[];
 };
 
-export const blocks: Block[] = [
-	{
-		textures: ["/assets/textures/block/stone.png"],
+export const blocks = {
+	stone: {
+		id: "stone",
+		textures: [{ path: "/assets/textures/block/stone.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/grass_block.png"], // #00AE54 is pretty
+	grass_block: {
+		id: "grass_block",
+		textures: [
+			{
+				path: "/assets/textures/block/grass_block_layer.png",
+				maskPath: "/assets/textures/block/grass_block_layer.mask.png",
+				tint: (props) => props.biome.colours.grass ?? defaultBiome.colours.grass,
+			},
+			{
+				path: "/assets/textures/block/dirt.png",
+			},
+		],
 	},
-	{
-		textures: ["/assets/textures/block/dirt.png"],
+	dirt: {
+		id: "dirt",
+		textures: [{ path: "/assets/textures/block/dirt.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/sand.png"],
+	sand: {
+		id: "sand",
+		textures: [{ path: "/assets/textures/block/sand.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/gravel.png"],
+	gravel: {
+		id: "gravel",
+		textures: [{ path: "/assets/textures/block/gravel.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/coal_ore.png"],
+	coal_ore: {
+		id: "coal_ore",
+		textures: [{ path: "/assets/textures/block/coal_ore.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/iron_ore.png"],
+	iron_ore: {
+		id: "iron_ore",
+		textures: [{ path: "/assets/textures/block/iron_ore.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/granite.png"],
+	granite: {
+		id: "granite",
+		textures: [{ path: "/assets/textures/block/granite.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/diorite.png"],
+	diorite: {
+		id: "diorite",
+		textures: [{ path: "/assets/textures/block/diorite.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/seagrass.png"],
+	seagrass: {
+		id: "seagrass",
+		textures: [{ path: "/assets/textures/block/seagrass.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/sunbloomed_floropumice.png"],
+	sunbloomed_floropumice: {
+		id: "sunbloomed_floropumice",
+		textures: [{ path: "/assets/textures/block/sunbloomed_floropumice.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/sunbloomed_petaleaves.png"],
+	sunbloomed_petaleaves: {
+		id: "sunbloomed_petaleaves",
+		textures: [{ path: "/assets/textures/block/sunbloomed_petaleaves.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/mallowbloom_floropumice.png"],
+	mallowbloom_floropumice: {
+		id: "mallowbloom_floropumice",
+		textures: [{ path: "/assets/textures/block/mallowbloom_floropumice.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/mallowbloom_petaleaves.png"],
+	mallowbloom_petaleaves: {
+		id: "mallowbloom_petaleaves",
+		textures: [{ path: "/assets/textures/block/mallowbloom_petaleaves.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/water.png"],
-		textureTint: (props) => (props.x < 46 ? "#2B39FE" : "#617B64"),
-		textureMask: (props) => {
-			switch (props.y) {
-				case 8:
-					return "/assets/textures/block/water_depth_1.mask.png";
-				case 7:
-					return "/assets/textures/block/water_depth_2.mask.png";
-				case 6:
-					return "/assets/textures/block/water_depth_3.mask.png";
-				case 5:
-					return "/assets/textures/block/water_depth_4.mask.png";
-				case 4:
-					return "/assets/textures/block/water_depth_5.mask.png";
-				case 3:
-					return "/assets/textures/block/water_depth_6.mask.png";
-				default:
-					return "/assets/textures/block/water_surface.mask.png";
-			}
-		},
+	lily_pad: {
+		id: "lily_pad",
+		textures: [
+			{
+				path: "/assets/textures/block/lily_pad.png",
+				maskPath: "/assets/textures/block/lily_pad.mask.png",
+				tint: (props) => props.biome.colours.foliage ?? defaultBiome.colours.foliage,
+			},
+		],
 	},
-	{
-		textures: ["/assets/textures/block/clay.png"],
+	clay: {
+		id: "clay",
+		textures: [{ path: "/assets/textures/block/clay.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/oak_log.png"],
+	oak_log: {
+		id: "oak_log",
+		textures: [{ path: "/assets/textures/block/oak_log.png" }],
 	},
-	{
-		textures: ["/assets/textures/block/oak_leaves.png"],
-		textureMask: "/assets/textures/block/oak_leaves.mask.png",
-		textureTint: (props) => (props.x < 45 ? "#59AE30" : "#6A7039"),
+	oak_leaves: {
+		id: "oak_leaves",
+		textures: [
+			{
+				path: "/assets/textures/block/oak_leaves.png",
+				maskPath: "/assets/textures/block/oak_leaves.mask.png",
+				tint: (props) => props.biome.colours.foliage ?? defaultBiome.colours.foliage,
+			},
+		],
 	},
-	{
-		textures: ["/assets/textures/block/hollow_oak_log_side.png"],
+	hollow_oak_log: {
+		id: "hollow_oak_log",
+		textures: [{ path: "/assets/textures/block/hollow_oak_log.png" }],
 	},
-];
-
-export const namedBlocks = {
-	stone: blocks[0],
-	grass_block: blocks[1],
-	dirt: blocks[2],
-	sand: blocks[3],
-	gravel: blocks[4],
-	coal_ore: blocks[5],
-	iron_ore: blocks[6],
-	granite: blocks[7],
-	diorite: blocks[8],
-	seagrass: blocks[9],
-	sunbloomed_floropumice: blocks[10],
-	sunbloomed_petaleaves: blocks[11],
-	mallowbloom_floropumice: blocks[12],
-	mallowbloom_petaleaves: blocks[13],
-	water: blocks[14],
-	clay: blocks[15],
-	oak_log: blocks[16],
-	oak_leaves: blocks[17],
-	hollow_oak_log_side: blocks[18],
+	firefly_bush: {
+		id: "firefly_bush",
+		textures: [{ path: "/assets/textures/block/firefly_bush.png" }],
+	},
 } as const satisfies Record<string, Block>;
 
 export const fluids = {
 	water: {
 		id: "water",
-		texture: "/assets/textures/block/water.png",
-		textureTint: (props) => (props.x < 46 ? "#2B39FE" : "#617B64"),
-		textureMask: (props) => {
-			switch (props.y) {
-				case 8:
-					return "/assets/textures/block/water_depth_1.mask.png";
-				case 7:
-					return "/assets/textures/block/water_depth_2.mask.png";
-				case 6:
-					return "/assets/textures/block/water_depth_3.mask.png";
-				case 5:
-					return "/assets/textures/block/water_depth_4.mask.png";
-				case 4:
-					return "/assets/textures/block/water_depth_5.mask.png";
-				case 3:
-					return "/assets/textures/block/water_depth_6.mask.png";
-				default:
-					return "/assets/textures/block/water_surface.mask.png";
-			}
-		},
+		textures: [
+			{
+				path: "/assets/textures/block/water.png",
+				maskPath: (props) => {
+					switch (props.y) {
+						case 8:
+							return "/assets/textures/block/water_depth_1.mask.png";
+						case 7:
+							return "/assets/textures/block/water_depth_2.mask.png";
+						case 6:
+							return "/assets/textures/block/water_depth_3.mask.png";
+						case 5:
+							return "/assets/textures/block/water_depth_4.mask.png";
+						case 4:
+							return "/assets/textures/block/water_depth_5.mask.png";
+						case 3:
+							return "/assets/textures/block/water_depth_6.mask.png";
+						default:
+							return "/assets/textures/block/water_surface.mask.png";
+					}
+				},
+				tint: (props) => props.biome.colours.water ?? defaultBiome.colours.water,
+			},
+		],
 	},
 } as const satisfies Record<string, Fluid>;

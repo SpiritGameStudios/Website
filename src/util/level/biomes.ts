@@ -7,21 +7,21 @@ export type Biome = {
 	};
 };
 
-export const defaultBiome: Biome = {
+export const defaultBiome = {
 	id: "default",
 	colours: {
 		grass: "#8EB971",
 		foliage: "#71A74D",
 		water: "#3F76E4",
 	},
-};
+} as const satisfies Biome;
 
 export const biomes = {
 	forest: {
 		id: "forest",
 		colours: {
 			foliage: "#59AE30",
-			grass: "#79C05A",
+			grass: "#00AE54",
 			water: "#2B39FE",
 		},
 	},

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fluids, namedBlocks, type Block, type Fluid } from "@util/level/blocks";
+	import { fluids, blocks, type Block, type Fluid } from "@util/level/blocks";
 	import { getEncodedEntry, type LevelGridSpace, type VisualLevelState, type WorldState } from "@util/level/level";
 	import GridSpaceWrapper from "@components/interactive/GridSpaceWrapper.svelte";
 	import { type Biome, biomes } from "@util/level/biomes";
@@ -10,26 +10,27 @@
 		blocks: {
 			pattern: {
 				"-": undefined,
-				S: namedBlocks.stone,
-				G: namedBlocks.grass_block,
-				D: namedBlocks.dirt,
-				B: namedBlocks.sand,
-				R: namedBlocks.gravel,
-				C: namedBlocks.coal_ore,
-				I: namedBlocks.iron_ore,
-				N: namedBlocks.granite,
-				T: namedBlocks.diorite,
-				L: namedBlocks.clay,
-				K: namedBlocks.oak_log,
-				H: namedBlocks.hollow_oak_log_side,
-				"&": namedBlocks.oak_leaves,
-				A: namedBlocks.seagrass,
-				"~": namedBlocks.water,
-				O: namedBlocks.sunbloomed_floropumice,
-				U: namedBlocks.sunbloomed_petaleaves,
-				W: namedBlocks.mallowbloom_floropumice,
-				M: namedBlocks.mallowbloom_petaleaves,
-				"%": namedBlocks.seagrass,
+				S: blocks.stone,
+				G: blocks.grass_block,
+				D: blocks.dirt,
+				B: blocks.sand,
+				R: blocks.gravel,
+				C: blocks.coal_ore,
+				I: blocks.iron_ore,
+				N: blocks.granite,
+				T: blocks.diorite,
+				L: blocks.clay,
+				K: blocks.oak_log,
+				H: blocks.hollow_oak_log,
+				"&": blocks.oak_leaves,
+				A: blocks.seagrass,
+				O: blocks.sunbloomed_floropumice,
+				U: blocks.sunbloomed_petaleaves,
+				W: blocks.mallowbloom_floropumice,
+				M: blocks.mallowbloom_petaleaves,
+				"%": blocks.seagrass,
+				_: blocks.lily_pad,
+				$: blocks.firefly_bush,
 			},
 			data: [
 				"--&&&----------------------------------------------------------",
@@ -39,8 +40,8 @@
 				"---K--------&&K&&------------------------------&KK&&------&&&&&",
 				"---K--GGG--H--K---------------------------------&K--------&&K&&",
 				"---GG-DDDGGGG-K----------------------------------K----------K--",
-				"H-GDDGDDDDDDDGK----------------------------------K----------K--",
-				"GGDDDDDDSSDDDDGG--------------------------------GGG-------HGGGG",
+				"H-GDDGDDDDDDDGK----------------------------------K$---------K--",
+				"GGDDDDDDSSDDDDGG----------------------------_-$-GGG---__--HGGGG",
 				"DDSSSDDSSSSSSDDDBBB---------------------------GGDDDG~~~~~GGDDDD",
 				"DDSSSSSS----SSSDDSSB-%------M--------------%-DDDDSDDDLLBDDDDRSD",
 				"SSSS----------SSSSSSBB%%----MM---U---------BBBSSSSSRDDLLLRRSSSS",
@@ -87,25 +88,25 @@
 				S: biomes.swamp,
 			},
 			data: [
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
-				"FFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
+				"FFFFFFFFFFFFFFFFFFFFFFFFFRRRRRRRRRRRRRRRRRRSSSSSSSSSSSSSSSSSSSS",
 			],
 		},
 	};
@@ -139,17 +140,17 @@
 	const world: WorldState = $state({
 		level: {
 			data: fromReadableLevel(),
-			width: readableLevel.blocks.data.length,
-			height: readableLevel.blocks.data[0].length,
+			width: readableLevel.blocks.data[0].length,
+			height: readableLevel.blocks.data.length,
 		},
 	});
 </script>
 
-<div class="flex flex-col overflow-x-auto">
+<div style="grid-template-rows: repeat({world.level.height}, {blockSize}px);" class="grid overflow-x-auto">
 	{#each world.level.data as levelRow, iterY}
-		<div class="grid" style="grid-template-columns: repeat({levelRow.length}, {blockSize}px)">
+		<div class="grid" style="grid-template-columns: repeat({world.level.width}, {blockSize}px)">
 			{#each levelRow as gridSpace, iterX}
-				<GridSpaceWrapper size={blockSize} x={iterX} y={world.level.data.length - iterY - 1} {gridSpace} />
+				<GridSpaceWrapper size={blockSize} x={iterX} y={world.level.height - iterY - 1} {gridSpace} />
 			{/each}
 		</div>
 	{/each}
