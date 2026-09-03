@@ -1,4 +1,4 @@
-import type { Block, Fluid } from "@util/level/blocks";
+import { type Block, type Fluid } from "@util/level/block";
 import type { Biome } from "./biomes";
 
 type OnlyFirstChar<S extends string> = S extends `${infer $TFirstChar}${string}` ? $TFirstChar : string;
@@ -25,11 +25,16 @@ export type LevelGridSpace = {
 	fluid?: Fluid;
 };
 
+export type LevelMetadata = {
+	width: number;
+	height: number;
+	sea_level: number;
+};
+
 export type WorldState = {
 	level: {
 		data: LevelGridSpace[][];
-		width: number;
-		height: number;
+		metadata: LevelMetadata;
 	};
 };
 

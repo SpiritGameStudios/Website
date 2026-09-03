@@ -1,14 +1,22 @@
 <script lang="ts">
-	import { type VariantValue } from "@util/level/blocks";
-	import type { LevelGridSpace } from "@util/level/level";
+	import { type VariantValue } from "@util/level/block";
+	import type { LevelGridSpace, LevelMetadata } from "@util/level/level";
 
 	const {
 		gridSpace,
 		size,
 		x,
 		y,
+		metadata,
 		style = "",
-	}: { gridSpace: LevelGridSpace; size: number; x: number; y: number; style?: string } = $props();
+	}: {
+		gridSpace: LevelGridSpace;
+		size: number;
+		x: number;
+		y: number;
+		metadata: LevelMetadata;
+		style?: string;
+	} = $props();
 
 	const computeProperty = (value: string | VariantValue<string>) => {
 		return value instanceof Function
@@ -16,6 +24,7 @@
 					x,
 					y,
 					biome: gridSpace.biome,
+					metadata,
 				})
 			: value; // static textures
 	};
@@ -30,6 +39,7 @@
 			{@const layerTexture = computeProperty(layer.path)}
 			{@const layerTextureMask = layer.maskPath ? computeProperty(layer.maskPath) : undefined}
 			{@const layerTint = layer.tint ? computeProperty(layer.tint) : undefined}
+			{@const layerCss = layer.css ? computeProperty(layer.css) : undefined}
 
 			<!-- These blocks are not useful buttons for page navigation. <3 lynn -->
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -45,6 +55,7 @@
 					`background-size: ${size}px;`,
 					layerTextureMask ? `mask: url(${layerTextureMask}) alpha 0 0/${size}px ${size}px;` : null,
 					layerTint ? `background-color: ${layerTint}; background-blend-mode: multiply;` : null,
+					layerCss ?? null,
 					style,
 				].join(" ")}>
 			</div>
@@ -57,6 +68,7 @@
 			{@const layerTexture = computeProperty(layer.path)}
 			{@const layerTextureMask = layer.maskPath ? computeProperty(layer.maskPath) : undefined}
 			{@const layerTint = layer.tint ? computeProperty(layer.tint) : undefined}
+			{@const layerCss = layer.css ? computeProperty(layer.css) : undefined}
 			{@const zedOffset = gridSpace.block ? -1 * gridSpace.block.textures.length : 0}
 
 			<!-- These blocks are not useful buttons for page navigation. <3 lynn -->
@@ -73,6 +85,7 @@
 					`background-size: ${size}px;`,
 					layerTextureMask ? `mask: url(${layerTextureMask}) alpha 0 0/${size}px ${size}px;` : null,
 					layerTint ? `background-color: ${layerTint}; background-blend-mode: multiply;` : null,
+					layerCss ?? null,
 					style,
 				].join(" ")}>
 			</div>

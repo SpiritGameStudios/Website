@@ -1,54 +1,5 @@
-import { type Biome, defaultBiome } from "./biomes";
-
-export type TextureProps = {
-	x: number;
-	y: number;
-	biome: Biome;
-};
-export type VariantValue<T> = (props: TextureProps) => T;
-
-export type TextureLayer = {
-	/**
-	 * Relative path for texture layers of the block. Should be a square image.
-	 */
-	path: string | VariantValue<string>;
-	/**
-	 * An alpha mask of the current texture. Useful to avoid tinting textures underneath.
-	 */
-	maskPath?: string | VariantValue<string>;
-	/**
-	 * A colour to tint the texture. Useful for location-specific colours, like leaves and foliage.
-	 */
-	tint?: string | VariantValue<string>;
-};
-
-export type Block = {
-	/**
-	 * Unique identifier for the block.
-	 */
-	id: string;
-	/**
-	 * Definitions of texture, masks and tint layers for the block.
-	 */
-	textures: TextureLayer[];
-	/**
-	 * An action to occur on press of any occurrence of the block.
-	 * @param event The event recieved on press.
-	 * @returns A function to handle any block press.
-	 */
-	action?: (event: Event) => void;
-};
-
-export type Fluid = {
-	/**
-	 * Unique identifier for the fluid.
-	 */
-	id: string;
-	/**
-	 * Definitions of texture, masks and tint layers for the block.
-	 */
-	textures: TextureLayer[];
-};
+import { defaultBiome } from "./biomes";
+import { minmax, type Block, type Fluid } from "./block";
 
 export const blocks = {
 	stone: {
@@ -160,25 +111,13 @@ export const fluids = {
 		textures: [
 			{
 				path: "/assets/textures/block/water.png",
-				maskPath: (props) => {
-					switch (props.y) {
-						case 8:
-							return "/assets/textures/block/water_depth_1.mask.png";
-						case 7:
-							return "/assets/textures/block/water_depth_2.mask.png";
-						case 6:
-							return "/assets/textures/block/water_depth_3.mask.png";
-						case 5:
-							return "/assets/textures/block/water_depth_4.mask.png";
-						case 4:
-							return "/assets/textures/block/water_depth_5.mask.png";
-						case 3:
-							return "/assets/textures/block/water_depth_6.mask.png";
-						default:
-							return "/assets/textures/block/water_surface.mask.png";
-					}
-				},
+				maskPath: (props) =>
+					props.y !== props.metadata.sea_level
+						? "/assets/textures/block/water.mask.png"
+						: "/assets/textures/block/water_surface.mask.png",
 				tint: (props) => props.biome.colours.water ?? defaultBiome.colours.water,
+				css: (props) =>
+					`opacity: ${props.y !== props.metadata.sea_level ? minmax((props.y * -16 + 272) / 2.56, 0, 100) : 100}%;`,
 			},
 		],
 	},

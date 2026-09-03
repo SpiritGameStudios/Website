@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { fluids, blocks, type Block, type Fluid } from "@util/level/blocks";
+	import { fluids, blocks } from "@util/level/blocks";
+	import { type Fluid, type Block } from "@util/level/block";
 	import { getEncodedEntry, type LevelGridSpace, type VisualLevelState, type WorldState } from "@util/level/level";
-	import GridSpaceWrapper from "@components/interactive/GridSpaceWrapper.svelte";
 	import { type Biome, biomes } from "@util/level/biomes";
+	import GridSpaceRenderer from "./GridSpaceRenderer.svelte";
 
 	const { blockSize }: { blockSize: number } = $props();
 
@@ -140,17 +141,27 @@
 	const world: WorldState = $state({
 		level: {
 			data: fromReadableLevel(),
-			width: readableLevel.blocks.data[0].length,
-			height: readableLevel.blocks.data.length,
+			metadata: {
+				width: readableLevel.blocks.data[0].length,
+				height: readableLevel.blocks.data.length,
+				sea_level: 9,
+			},
 		},
 	});
 </script>
 
-<div style="grid-template-rows: repeat({world.level.height}, {blockSize}px);" class="grid overflow-x-auto">
+<div style="grid-template-rows: repeat({world.level.metadata.height}, {blockSize}px);" class="grid overflow-x-auto">
 	{#each world.level.data as levelRow, iterY}
-		<div class="grid" style="grid-template-columns: repeat({world.level.width}, {blockSize}px)">
+		<div class="grid" style="grid-template-columns: repeat({world.level.metadata.width}, {blockSize}px)">
 			{#each levelRow as gridSpace, iterX}
-				<GridSpaceWrapper size={blockSize} x={iterX} y={world.level.height - iterY - 1} {gridSpace} />
+				{@const x = iterX}
+				{@const y = world.level.metadata.height - iterY - 1}
+
+				{#if typeof gridSpace !== "undefined"}
+					<GridSpaceRenderer {gridSpace} {x} {y} metadata={world.level.metadata} size={blockSize} />
+				{:else}
+					<div style="width: {blockSize}px; height: {blockSize}px;"></div>
+				{/if}
 			{/each}
 		</div>
 	{/each}
