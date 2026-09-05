@@ -35,7 +35,9 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	onmousedown={(event) => onGridClick(event, gridSpace, coordinates, metadata, world)}
-	class="relative {mayPlace(coordinates, world) || gridSpace.block ? 'hover:outline-2' : ''} hover:z-2">
+	class="relative {mayPlace(coordinates, world) || gridSpace.block
+		? 'hover:outline-2 cursor-pointer'
+		: ''} hover:z-2">
 	{@html `<!-- ${coordinates.x}, ${coordinates.y} -->`}
 
 	{#if gridSpace.block}
