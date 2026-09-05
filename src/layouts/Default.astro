@@ -43,38 +43,37 @@ title = title === "" || title === undefined ? "Spirit Studios" : `${title} ◊ S
 		/>
 		<meta name="theme-color" content="#8400ff" />
 	</head>
-	<body class="flex h-dvh flex-col">
-		<nav class="flex w-full flex-row justify-center p-2">
-			<div
-				class="layout-header-nine-slice flex w-full max-w-5xl flex-row items-center justify-center gap-4 sm:justify-between">
-				<div class="flex h-full flex-row items-center gap-2 font-bold">
-					<a class="px-8 py-6" href="/">
-						<Logotype />
-					</a>
+	<body class="flex h-auto flex-col xl:h-dvh">
+		<div class="flex h-dvh flex-auto flex-col">
+			<nav class="flex w-full flex-row justify-center p-2">
+				<div class="layout-header-nine-slice grid w-full max-w-5xl grid-cols-2 gap-4">
+					<div class="flex h-full flex-row items-center justify-start gap-2 font-bold">
+						<a class="px-8 py-6" href="/">
+							<Logotype />
+						</a>
+					</div>
+					<div class="text-ui-text-strong flex flex-row justify-end gap-2 gap-x-6 px-8 py-6 text-lg">
+						<a href="/projects">Projects</a>
+						<a href="/people">People</a>
+					</div>
 				</div>
-				<div class="text-ui-text-strong flex flex-row gap-2 gap-x-6 px-8 py-6 text-lg">
-					<a href="/projects">Projects</a>
-					<a href="/people">People</a>
+			</nav>
+			<main class="flex w-full flex-auto flex-row items-center justify-center px-2 pb-2 xl:flex-initial">
+				<div class="layout-main-nine-slice h-full w-full max-w-5xl px-8 py-8">
+					<slot />
 				</div>
-			</div>
-		</nav>
-		<main class="flex w-full flex-auto flex-row items-center justify-center px-2">
-			<div class="layout-main-nine-slice h-full w-full max-w-5xl px-8 py-8">
-				<slot />
-			</div>
-		</main>
-		<footer class="flex w-full flex-col items-center px-2 pt-2">
-			<div class="bg-size-sm w-full max-w-5xl border-x-8">
-				<Level blockSize={16} client:load />
-			</div>
-			<div
-				class="bg-size-sm h-64 w-full max-w-5xl border-x-8"
-				style=`background-image: url(/assets/textures/layout/footer_terrain.png)`>
-			</div>
-			<div class="bg-ui-background-secondary w-full max-w-5xl border-x-8 border-[#1a2323] p-6">
-				<span class="flex flex-row gap-0">
-					Made with <Icon name="lucide:heart" class="m-1" /> by Spirit Studios.
+			</main>
+		</div>
+		<footer class="flex w-full flex-col items-center px-2">
+			<div class="layout-footer-nine-slice flex w-full max-w-5xl flex-col">
+				<span class="px-2">
+					<Level class="pt-12" blockSize={16} client:load />
 				</span>
+				<div class="bg-ui-background-secondary border-x-8 border-[#1a2323] p-6">
+					<span class="flex flex-row gap-0">
+						Made with <Icon name="lucide:heart" class="m-1" /> by Spirit Studios.
+					</span>
+				</div>
 			</div>
 		</footer>
 	</body>

@@ -15,7 +15,7 @@
 		"@astrojs/svelte": "^9.0.1",
 		"@fontsource-variable/atkinson-hyperlegible-next": "^5.3.0",
 		"@tailwindcss/vite": "^4.3.3",
-		"astro": "^7.2.9",
+		"astro": "^7.3.1",
 		"astro-icon": "^1.2.0",
 		"marked": "^18.0.11",
 		"svelte": "^5.57.0",
@@ -23,7 +23,7 @@
 		"typescript": "^6.0.3"
 	},
 	"devDependencies": {
-		"@iconify-json/lucide": "^1.2.127",
+		"@iconify-json/lucide": "^1.2.129",
 		"@iconify-json/simple-icons": "1.2.94",
 		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",

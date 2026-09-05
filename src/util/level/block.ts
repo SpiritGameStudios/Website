@@ -1,9 +1,9 @@
-import { type Biome } from "./biomes";
-import type { LevelMetadata } from "./level";
+import { type Biome } from "@util/level/biomes";
+import { type GridCoordinates, type LevelMetadata } from "@util/level/level";
+import type { MouseGameEvent } from "./events";
 
 export type TextureProps = {
-	x: number;
-	y: number;
+	coordinates: GridCoordinates;
 	biome: Biome;
 	metadata: LevelMetadata;
 };
@@ -28,22 +28,70 @@ export type TextureLayer = {
 	css?: string | VariantValue<string>;
 };
 
-export type Block = {
-	/**
-	 * Unique identifier for the block.
-	 */
-	id: string;
-	/**
-	 * Definitions of texture, masks and tint layers for the block.
-	 */
-	textures: TextureLayer[];
-	/**
-	 * An action to occur on press of any occurrence of the block.
-	 * @param event The event recieved on press.
-	 * @returns A function to handle any block press.
-	 */
-	action?: (event: Event) => void;
+export type BlockAction = (event: Event, type: MouseGameEvent, props: TextureProps) => void;
+
+export type BlockMetadata = {
+	transparent: boolean;
+	mayPlaceOn: boolean;
 };
+
+export type Block = {
+	readonly id: string;
+	readonly textures: TextureLayer[];
+	readonly metadata: BlockMetadata;
+	readonly action?: BlockAction;
+};
+
+type BlockBuilder = {
+	id: string;
+	textures: TextureLayer[];
+	metadata: BlockMetadata;
+	action?: BlockAction;
+	addTexture: (t: TextureLayer) => BlockBuilder;
+	addAction: (a: BlockAction) => BlockBuilder;
+	transparent: () => BlockBuilder;
+	mayPlaceOn: () => BlockBuilder;
+	build: () => Block;
+};
+
+export function buildBlock(id: string) {
+	const builder: BlockBuilder = {
+		id,
+		textures: new Array<TextureLayer>(),
+		metadata: {
+			transparent: false,
+			mayPlaceOn: false,
+		},
+		action: undefined,
+
+		addTexture(texture: TextureLayer) {
+			this.textures.push(texture);
+			return this;
+		},
+		addAction(action: BlockAction) {
+			this.action = action;
+			return this;
+		},
+		transparent() {
+			this.metadata.transparent = true;
+			return this;
+		},
+		mayPlaceOn() {
+			this.metadata.mayPlaceOn = true;
+			return this;
+		},
+		build() {
+			return {
+				id: this.id,
+				textures: this.textures,
+				metadata: this.metadata,
+				action: this.action,
+			};
+		},
+	};
+
+	return builder;
+}
 
 export type Fluid = {
 	/**

@@ -1,11 +1,18 @@
 <script lang="ts">
-	import { fluids, blocks } from "@util/level/blocks";
-	import { type Fluid, type Block } from "@util/level/block";
-	import { getEncodedEntry, type LevelGridSpace, type VisualLevelState, type WorldState } from "@util/level/level";
-	import { type Biome, biomes } from "@util/level/biomes";
+	import {
+		getEncodedEntry,
+		toCoordinates,
+		type LevelGridSpace,
+		type VisualLevelState,
+		type WorldState,
+	} from "@util/level/level";
 	import GridSpaceRenderer from "./GridSpaceRenderer.svelte";
+	import { blocks, fluids } from "@util/level/blocks";
+	import { biomes, type Biome } from "@util/level/biomes";
+	import { type Block, type Fluid } from "@util/level/block";
+	import type { ClassValue } from "svelte/elements";
 
-	const { blockSize }: { blockSize: number } = $props();
+	const props: { blockSize: number; class?: ClassValue } = $props();
 
 	const readableLevel: VisualLevelState = {
 		blocks: {
@@ -25,6 +32,7 @@
 				H: blocks.hollow_oak_log,
 				"&": blocks.oak_leaves,
 				A: blocks.seagrass,
+				V: blocks.short_grass,
 				O: blocks.sunbloomed_floropumice,
 				U: blocks.sunbloomed_petaleaves,
 				W: blocks.mallowbloom_floropumice,
@@ -38,13 +46,13 @@
 				"-&&&&&-------&&&---------------------------------&&&-----------",
 				"-&&&&&------&&&&&------------------------------&&&KK&------&&&-",
 				"-&&K&&------&&&&&----------------------------&KK-&K&K-----&&&&&",
-				"---K--------&&K&&------------------------------&KK&&------&&&&&",
+				"---K----V---&&K&&------------------------------&KK&&------&&&&&",
 				"---K--GGG--H--K---------------------------------&K--------&&K&&",
-				"---GG-DDDGGGG-K----------------------------------K----------K--",
-				"H-GDDGDDDDDDDGK----------------------------------K$---------K--",
-				"GGDDDDDDSSDDDDGG----------------------------_-$-GGG---__--HGGGG",
+				"--VDG-DDDGGGGVK----------------------------------K----------K--",
+				"H-GDDGDDDDDDDGK----------------------------------K$---------K-V",
+				"GGDDDDDDSSDDDDDG----------------------------_-$-GDG---__--HGDGG",
 				"DDSSSDDSSSSSSDDDBBB---------------------------GGDDDG~~~~~GGDDDD",
-				"DDSSSSSS----SSSDDSSB-%------M--------------%-DDDDSDDDLLBDDDDRSD",
+				"DDSSSSSS----SSSDDSSB-%------M--------------%-DDDDSDDD~~BDDDDRSD",
 				"SSSS----------SSSSSSBB%%----MM---U---------BBBSSSSSRDDLLLRRSSSS",
 				"SS-------------SSSSSSDDDD--MWM---UU-------%SSSSSSSSSSRRRRRSSSRS",
 				"S--------------SSSSSSSDDDDD-W---UUO--%%-BBSSSSSSSSSSSSRRSSSSRRR",
@@ -72,11 +80,11 @@
 				"---------------------------------------------------------------",
 				"-------------------~~~~~~~~~~~~~~~~~~~~~~~~~~~------~~~~~------",
 				"--------------------~~~~~~~~~~~~~~~~~~~~~~~~~--------~~--------",
-				"----------------------~~~~~~~~~~~~~~~~~~~~~-----------~~~------",
-				"-------------------------~~~~~~~~~~~~~~~~~~--------------------",
-				"---------------------------~~~~~~~~~~~~~~----------------------",
-				"-----------------------------~~~~~~~~--------------------------",
-				"------------------------------~~~~-----------------------------",
+				"----------------------~~~~~~~~~~~~~~~~~~~~~--------------------",
+				"-------------------------~~~-~~~~~~~~~~~~~~--------------------",
+				"---------------------------~-~~~~~-~~~~~~----------------------",
+				"-----------------------------~~~~-~~~--------------------------",
+				"------------------------------~~~------------------------------",
 				"---------------------------------------------------------------",
 				"---------------------------------------------------------------",
 				"---------------------------------------------------------------",
@@ -138,7 +146,7 @@
 		return grid;
 	}
 
-	const world: WorldState = $state({
+	export const world: WorldState = $state({
 		level: {
 			data: fromReadableLevel(),
 			metadata: {
@@ -150,18 +158,28 @@
 	});
 </script>
 
-<div style="grid-template-rows: repeat({world.level.metadata.height}, {blockSize}px);" class="grid overflow-x-auto">
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+	oncontextmenu={(e) => e.preventDefault()}
+	style="grid-template-rows: repeat({world.level.metadata.height}, {props.blockSize}px);"
+	class="grid overflow-x-auto {props.class}">
 	{#each world.level.data as levelRow, iterY}
-		<div class="grid" style="grid-template-columns: repeat({world.level.metadata.width}, {blockSize}px)">
+		<div class="grid" style="grid-template-columns: repeat({world.level.metadata.width}, {props.blockSize}px)">
 			{#each levelRow as gridSpace, iterX}
-				{@const x = iterX}
-				{@const y = world.level.metadata.height - iterY - 1}
+				{@const coordinates = toCoordinates(
+					{
+						column: iterX,
+						row: iterY,
+					},
+					world.level.metadata.height,
+				)}
 
-				{#if typeof gridSpace !== "undefined"}
-					<GridSpaceRenderer {gridSpace} {x} {y} metadata={world.level.metadata} size={blockSize} />
-				{:else}
-					<div style="width: {blockSize}px; height: {blockSize}px;"></div>
-				{/if}
+				<GridSpaceRenderer
+					{gridSpace}
+					{world}
+					{coordinates}
+					metadata={world.level.metadata}
+					size={props.blockSize} />
 			{/each}
 		</div>
 	{/each}

@@ -86,6 +86,10 @@
 		border-image: url(/assets/textures/layout/main_background.png) 5 5 5 5 fill / 40px 40px 40px 40px;
 	}
 
+	.layout-footer-nine-slice {
+		border-image: url(/assets/textures/layout/footer_background.png) 8 8 8 8 fill / 64px 64px 64px 64px;
+	}
+
 	/* Background image size utils */
 	.bg-size-sm {
 		background-size: --spacing(256);
